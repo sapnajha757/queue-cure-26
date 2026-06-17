@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #faf6ef;
+  color: #1f2d27;
+  font-family: "Inter", ui-sans-serif, system-ui;
+}
+
+/* Dashed "perforation" divider - the signature motif, echoing a torn paper token */
+.perforated {
+  border-top: 2px dashed #d8d0c0;
+}
+
+.perforated-bottom {
+  border-bottom: 2px dashed #d8d0c0;
+}

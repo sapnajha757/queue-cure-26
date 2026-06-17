@@ -1,0 +1,83 @@
+<svg viewBox="0 0 960 560" xmlns="http://www.w3.org/2000/svg" font-family="Inter, ui-sans-serif, sans-serif">
+  <defs>
+    <marker id="arrowSage" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#4F7A6B" />
+    </marker>
+    <marker id="arrowSaffron" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#E2A33D" />
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="560" fill="#FAF6EF" />
+
+  <!-- Title -->
+  <text x="480" y="38" text-anchor="middle" font-size="22" font-weight="700" fill="#1F2D27">Queue Cure '26 — Socket Event Flow</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#1F2D27" opacity="0.6">How the receptionist desk and the waiting room display stay in sync</text>
+
+  <!-- Receptionist box -->
+  <rect x="30" y="100" width="200" height="140" rx="10" fill="#FFFFFF" stroke="#4F7A6B" stroke-width="2" />
+  <text x="130" y="135" text-anchor="middle" font-size="15" font-weight="700" fill="#1F2D27">Receptionist</text>
+  <text x="130" y="153" text-anchor="middle" font-size="11" fill="#1F2D27" opacity="0.6">Client (React)</text>
+  <line x1="50" y1="165" x2="210" y2="165" stroke="#D8D0C0" stroke-width="2" stroke-dasharray="4 4" />
+  <text x="130" y="188" text-anchor="middle" font-size="10.5" fill="#1F2D27" opacity="0.7">emits commands</text>
+  <text x="130" y="205" text-anchor="middle" font-size="10.5" fill="#1F2D27" opacity="0.7">receives queueUpdate</text>
+
+  <!-- Server box -->
+  <rect x="380" y="80" width="220" height="180" rx="10" fill="#1F2D27" />
+  <text x="490" y="115" text-anchor="middle" font-size="15" font-weight="700" fill="#FAF6EF">Socket.io Server</text>
+  <text x="490" y="133" text-anchor="middle" font-size="11" fill="#FAF6EF" opacity="0.6">Node + Express</text>
+  <line x1="400" y1="145" x2="580" y2="145" stroke="#FAF6EF" stroke-width="1" opacity="0.2" />
+  <text x="490" y="167" text-anchor="middle" font-size="11" font-family="IBM Plex Mono, monospace" fill="#E2A33D">patients[ ]</text>
+  <text x="490" y="187" text-anchor="middle" font-size="11" font-family="IBM Plex Mono, monospace" fill="#E2A33D">currentToken</text>
+  <text x="490" y="207" text-anchor="middle" font-size="11" font-family="IBM Plex Mono, monospace" fill="#E2A33D">avgConsultTime</text>
+  <text x="490" y="235" text-anchor="middle" font-size="9.5" fill="#FAF6EF" opacity="0.5">in-memory state, no database</text>
+
+  <!-- Patient box -->
+  <rect x="730" y="100" width="200" height="140" rx="10" fill="#FFFFFF" stroke="#E2A33D" stroke-width="2" />
+  <text x="830" y="135" text-anchor="middle" font-size="15" font-weight="700" fill="#1F2D27">Waiting Room</text>
+  <text x="830" y="153" text-anchor="middle" font-size="11" fill="#1F2D27" opacity="0.6">Client (React) — read only</text>
+  <line x1="750" y1="165" x2="910" y2="165" stroke="#D8D0C0" stroke-width="2" stroke-dasharray="4 4" />
+  <text x="830" y="188" text-anchor="middle" font-size="10.5" fill="#1F2D27" opacity="0.7">never emits commands</text>
+  <text x="830" y="205" text-anchor="middle" font-size="10.5" fill="#1F2D27" opacity="0.7">receives queueUpdate</text>
+
+  <!-- Left gap: Receptionist -> Server (3 command events) -->
+  <line x1="232" y1="128" x2="378" y2="118" stroke="#4F7A6B" stroke-width="2" marker-end="url(#arrowSage)" />
+  <text x="305" y="115" text-anchor="middle" font-size="11" font-family="IBM Plex Mono, monospace" fill="#4F7A6B">addPatient</text>
+
+  <line x1="232" y1="160" x2="378" y2="155" stroke="#4F7A6B" stroke-width="2" marker-end="url(#arrowSage)" />
+  <text x="305" y="148" text-anchor="middle" font-size="11" font-family="IBM Plex Mono, monospace" fill="#4F7A6B">callNext</text>
+
+  <line x1="232" y1="192" x2="378" y2="192" stroke="#4F7A6B" stroke-width="2" marker-end="url(#arrowSage)" />
+  <text x="305" y="185" text-anchor="middle" font-size="11" font-family="IBM Plex Mono, monospace" fill="#4F7A6B">setAvgTime</text>
+
+  <!-- Left gap: Server -> Receptionist (broadcast) -->
+  <line x1="378" y1="225" x2="232" y2="222" stroke="#E2A33D" stroke-width="2.5" marker-end="url(#arrowSaffron)" />
+  <text x="305" y="245" text-anchor="middle" font-size="11" font-family="IBM Plex Mono, monospace" fill="#E2A33D" font-weight="600">queueUpdate</text>
+
+  <!-- Right gap: Server -> Patient (broadcast) -->
+  <line x1="602" y1="170" x2="728" y2="170" stroke="#E2A33D" stroke-width="2.5" marker-end="url(#arrowSaffron)" />
+  <text x="665" y="160" text-anchor="middle" font-size="11" font-family="IBM Plex Mono, monospace" fill="#E2A33D" font-weight="600">queueUpdate</text>
+  <text x="665" y="195" text-anchor="middle" font-size="9.5" fill="#1F2D27" opacity="0.5">broadcast to ALL clients</text>
+
+  <!-- Legend -->
+  <line x1="60" y1="290" x2="900" y2="290" stroke="#D8D0C0" stroke-width="2" stroke-dasharray="6 5" />
+
+  <text x="60" y="320" font-size="13" font-weight="700" fill="#1F2D27">Event payloads</text>
+
+  <text x="60" y="350" font-size="11.5" font-family="IBM Plex Mono, monospace" fill="#4F7A6B" font-weight="600">addPatient</text>
+  <text x="220" y="350" font-size="11.5" fill="#1F2D27" opacity="0.75">{ name, phone } — server assigns the next token number</text>
+
+  <text x="60" y="378" font-size="11.5" font-family="IBM Plex Mono, monospace" fill="#4F7A6B" font-weight="600">callNext</text>
+  <text x="220" y="378" font-size="11.5" fill="#1F2D27" opacity="0.75">no payload — marks current token done, promotes next waiting patient</text>
+
+  <text x="60" y="406" font-size="11.5" font-family="IBM Plex Mono, monospace" fill="#4F7A6B" font-weight="600">setAvgTime</text>
+  <text x="220" y="406" font-size="11.5" fill="#1F2D27" opacity="0.75">{ minutes } — updates the estimate used on the waiting room screen</text>
+
+  <text x="60" y="434" font-size="11.5" font-family="IBM Plex Mono, monospace" fill="#E2A33D" font-weight="600">queueUpdate</text>
+  <text x="220" y="434" font-size="11.5" fill="#1F2D27" opacity="0.75">{ patients, currentToken, avgConsultTime, waitingCount }</text>
+
+  <text x="60" y="462" font-size="11" fill="#1F2D27" opacity="0.55">Sent to every connected socket the instant state changes, and once immediately on connect —</text>
+  <text x="60" y="480" font-size="11" fill="#1F2D27" opacity="0.55">this single event is the entire "live sync" mechanism between the two screens.</text>
+
+  <text x="60" y="515" font-size="10.5" fill="#1F2D27" opacity="0.4">Bonus event for demos: resetQueue — clears state back to a clean slate, no payload.</text>
+</svg>
